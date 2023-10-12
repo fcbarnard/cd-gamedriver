@@ -168,6 +168,20 @@ explode_string(char *str, char *delim)
         num++;
     }
 
+    /*
+     * FCB - DEBUG 9/6
+     * If no delimiter is found, create an array with the entire string.
+     */
+    if (num == 0)
+    {
+        struct vector *arr = allocate_array(1);
+        arr->item[0].type = T_STRING;
+        arr->item[0].string_type = STRING_MSTRING;
+        arr->item[0].u.string = make_mstring(str);
+        return arr;
+    }
+
+
     /* Short circuit the most common case of no match */
     if (p == str) {
         /* TODO: Reference string */
